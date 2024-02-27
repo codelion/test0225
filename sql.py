@@ -5,10 +5,10 @@ def safe_query(database_path, username, password):
     connection = sqlite3.connect(database_path)
     cursor = connection.cursor()
     
-    sql_query = f"SELECT * FROM users WHERE username = '{username}' AND password = '{password}'"
+    sql_query = "SELECT * FROM users WHERE username = ? AND password = ?"
     
     try:
-        cursor.execute(sql_query)
+        cursor.execute(sql_query, (username, password))
         result = cursor.fetchone()
         if result:
             return "Login successful."
